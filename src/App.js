@@ -1,14 +1,10 @@
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
+import Router from "./router/Router";
 
 function App() {
-  return (
-    <div className="App">
-      <h1 className="text-center text-3xl font-bold">
-        welcome to the project world
-      </h1>
-    </div>
-  );
+  const [allRoutes, setAllRoutes] = useState([]);
+  return <Router allRoutes={allRoutes} />;
 }
 
 export default App;
