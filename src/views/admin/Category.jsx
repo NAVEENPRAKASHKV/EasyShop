@@ -4,11 +4,15 @@ import { MdAutoDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Pagination from "../Pagination";
 import { FaImages } from "react-icons/fa";
+import { MdFormatListBulletedAdd } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
 const Category = () => {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
+  const [show, setShow] = useState(false);
+  // dummy data
   const data = [
     {
       id: 1,
@@ -36,10 +40,17 @@ const Category = () => {
       name: "Category 5",
     },
   ];
-
   return (
     <div className="px-4 lg:px-8 pt-5">
-      <div className="flex flex-wrap gap-5">
+      {/* toggle button for add category small screen */}
+      <div
+        className="flex justify-start items-center my-3 gap-3 font-bold cursor-pointer lg:hidden"
+        onClick={() => setShow(!show)}
+      >
+        <MdFormatListBulletedAdd className="text-2xl" />
+        <h4>Add new category</h4>
+      </div>
+      <div className="flex flex-wrap gap-5 relative">
         {/* Category List Section */}
         <div className="w-full lg:w-7/12 bg-white shadow-md rounded-md">
           {/* Table Header */}
@@ -126,11 +137,24 @@ const Category = () => {
         </div>
 
         {/* Add New Category Section */}
-        <div className="w-[320px] lg:w-4/12 bg-slate-600 shadow-md rounded-md p-5">
-          <div>
+        <div
+          className={`w-[320px] lg:w-4/12 translate-x-100 lg:relative lg:right-0 fixed ${
+            show ? `right-0` : `-right-[340px]`
+          } bg-slate-600 shadow-md rounded-md p-5 z-[9999] top-10 lg:top-0 transition-all duration-500  `}
+        >
+          <div className="flex justify-between">
             <h2 className="text-lg font-semibold mb-4 text-white text-center">
               Add New Category
             </h2>
+            {/* close button */}
+            {show && (
+              <span
+                onClick={() => setShow(false)}
+                className="text-2xl  text-white hover:cursor-pointer hover:bg-red-600 rounded-full w-8 h-8 flex justify-center items-center"
+              >
+                <IoClose />
+              </span>
+            )}
           </div>
 
           {/* Add Category Form Placeholder */}
