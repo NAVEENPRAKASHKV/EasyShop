@@ -3,16 +3,17 @@ import api from "../../api/api";
 
 export const admin_login = createAsyncThunk(
   "auth/admin_login",
-  async (info) => {
+  async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
-      console.log("console the data in reducer", info);
       const response = await api.post("/admin-login", info, {
         withCredentials: true,
       });
-      console.log(response.data);
+      localStorage.setItem("accessToken", response.data.token);
+
+      return fulfillWithValue(response.data);
     } catch (error) {
-      console.log(error);
-      console.log("error while fetching the data");
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -22,11 +23,30 @@ const authReducer = createSlice({
   initialState: {
     successMessage: "",
     errorMessage: "",
-    loader: "",
+    loader: false,
     userInfo: "",
   },
-  reducers: {},
-  extraReducers: () => {},
+  reducers: {
+    messageClear: (state, action) => {
+      state.errorMessage = "";
+      state.successMessage = "";
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(admin_login.pending, (state, action) => {
+      state.loader = true;
+      state.errorMessage = "";
+    });
+    builder.addCase(admin_login.rejected, (state, action) => {
+      state.loader = false;
+      state.errorMessage = action.payload.error;
+    });
+    builder.addCase(admin_login.fulfilled, (state, action) => {
+      state.loader = false;
+      state.successMessage = action.payload.message;
+    });
+  },
 });
 
+export const { messageClear } = authReducer.actions;
 export default authReducer.reducer;

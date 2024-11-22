@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { admin_login } from "../../store/Reducers/authReducer";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { admin_login, messageClear } from "../../store/Reducers/authReducer";
+import { PropagateLoader } from "react-spinners";
+import toast from "react-hot-toast";
 
 const AdminLogin = () => {
   const [state, setState] = useState({
@@ -10,6 +11,12 @@ const AdminLogin = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { loader, errorMessage, successMessage } = useSelector(
+    (store) => store.auth
+  );
+
   const inputHandle = (e) => {
     const { name, value } = e.target;
     setState({
@@ -21,6 +28,24 @@ const AdminLogin = () => {
     e.preventDefault();
     dispatch(admin_login(state));
   };
+  const overRideStyle = {
+    display: "flex",
+    margin: "0 auto",
+    height: "24px",
+    justifyContent: "center",
+    alignItem: "center",
+  };
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+      navigate("/");
+    }
+  }, [errorMessage, successMessage]);
   return (
     <div className="min-w-screen min-h-screen bg-[#719671] flex justify-center items-center">
       <div className="max-w-sm w-full bg-white rounded-2xl shadow-md">
@@ -76,8 +101,15 @@ const AdminLogin = () => {
             </div>
             {/* signin button */}
             <div className="flex justify-center mb-3 ">
-              <button className="bg-green-600 w-full text-white px-3  py-2 rounded-lg hover:bg-green-700">
-                Sign In
+              <button
+                disabled={loader ? true : false}
+                className="bg-green-600 w-full text-white px-3  py-2 rounded-lg hover:bg-green-700"
+              >
+                {loader ? (
+                  <PropagateLoader color="#fff" cssOverride={overRideStyle} />
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </div>
           </form>
