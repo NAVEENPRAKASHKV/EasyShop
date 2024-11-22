@@ -7,6 +7,7 @@ import { FaCodePullRequest } from "react-icons/fa6";
 import { IoIosChatbubbles } from "react-icons/io";
 
 export const allNav = [
+  // admin navigation
   {
     id: 1,
     title: "Dashboard",
@@ -44,17 +45,17 @@ export const allNav = [
   },
   {
     id: 6,
-    title: "Deactive Sellers",
+    title: "Customers",
     icon: <FaUserTimes />,
     role: "admin",
-    path: "/admin/dashboard/deactive-sellers",
+    path: "/admin/dashboard/customers",
   },
   {
     id: 7,
-    title: "Seller Request",
+    title: "Coupon",
     icon: <FaCodePullRequest />,
     role: "admin",
-    path: "/admin/dashboard/sellers-request",
+    path: "/admin/dashboard/coupon",
   },
   {
     id: 8,
@@ -62,5 +63,62 @@ export const allNav = [
     icon: <IoIosChatbubbles />,
     role: "admin",
     path: "/admin/dashboard/chat-seller",
+  },
+  // seller navigation
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard",
+  },
+  {
+    id: 2,
+    title: "All Product",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/all-product",
+  },
+  {
+    id: 3,
+    title: "add Product",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/add-product",
+  },
+  {
+    id: 4,
+    title: "Offer Product",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/offer",
+  },
+  {
+    id: 5,
+    title: "Orders",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/orders",
+  },
+  {
+    id: 6,
+    title: "Payments",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/payments",
+  },
+  {
+    id: 7,
+    title: "Chat Support",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/chat-support",
+  },
+  {
+    id: 8,
+    title: "Chat Customer",
+    icon: <MdOutlineDashboardCustomize />,
+    role: "seller",
+    path: "/seller/dashboard/chat-customer",
   },
 ];

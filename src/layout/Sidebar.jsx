@@ -9,7 +9,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const navs = getNav("admin");
+    const navs = getNav("seller");
     setAllNav(navs);
   }, []);
 
@@ -44,10 +44,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             <IoCloseCircleSharp />
           </span>
         </div>
-
+        {/* sidebar menu */}
         <div>
+          {/* sidebar option menu */}
           <ul>
-            {/* sidebar menu */}
             {allNav.map((nav, index) => {
               return (
                 <li key={nav.id} className="shadow-sm mb-3 mx-3 rounded-sm ">
